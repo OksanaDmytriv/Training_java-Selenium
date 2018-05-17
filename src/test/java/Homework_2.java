@@ -70,11 +70,10 @@ public class Homework_2 {
                 Integer dropDownElementsSize = dropDownMenuSize(i);
                 for (int k = 0; k < dropDownElementsSize; k++) {
                     getDropDownMenu(i).get(k).click();
-                    //Assert.assertTrue(driver.findElements(By.cssSelector("hi")).size() > 0);
-                    //Assert.assertTrue();
+                    Assert.assertTrue(driver.findElement(By.tagName("h1")).isDisplayed());
                 }
             } else {
-                //sideMenuElement.click();
+                Assert.assertTrue(driver.findElement(By.tagName("h1")).isDisplayed());
 
             }
         }
