@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -12,22 +13,31 @@ import java.util.List;
 
 public class Homework_2 {
     static WebDriver driver;
-    public int menuSize;
+    public int sideMenuSize;
 
-    public List<WebElement> menu() {
+    public List<WebElement> getFullSideMenu() {
         return driver.findElement(By.id("box-apps-menu")).findElements(By.tagName("li"));
     }
 
-    public WebElement menuElementFinder(int count) {
-        return menu().get(count);
+    public WebElement getSideMenuElementByNumber(int count) {
+        return getFullSideMenu().get(count);
     }
 
-    public List<WebElement> menuElements(int count) {
-        return menuElementFinder(count).findElement(By.className("docs")).findElements(By.tagName("li"));
+    public boolean checkIfDropDownExist(int count) {
+        try {
+            getDropDownMenu(count);
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
     }
 
-    public Integer menuElementsSize(int count) {
-        return menuElements(count).size();
+    public List<WebElement> getDropDownMenu(int count) {
+        return getSideMenuElementByNumber(count).findElement(By.className("docs")).findElements(By.tagName("li"));
+    }
+
+    public Integer dropDownMenuSize(int count) {
+        return getDropDownMenu(count).size();
     }
 
     public void clickOnLogo() {
@@ -50,25 +60,21 @@ public class Homework_2 {
     @Test
     public void secondTest() {
         login();
-        menuSize = menu().size();
-        for (int i = 0; i < menuSize; i++) {
+        sideMenuSize = getFullSideMenu().size();
+        for (int i = 0; i < sideMenuSize; i++) {
             clickOnLogo();
 
-            WebElement menuElement = menuElementFinder(i);
-            menuElement.click();
-            Integer menuElSize = menuElementsSize(i);
-
-            if (menuElSize > 1) {
-                for (int k = 0; k < menuElSize; k++) {
-                    menuElements(i).get(k).click();
+            WebElement sideMenuElement = getSideMenuElementByNumber(i);
+            sideMenuElement.click();
+            if (checkIfDropDownExist(i) != false) {
+                Integer dropDownElementsSize = dropDownMenuSize(i);
+                for (int k = 0; k < dropDownElementsSize; k++) {
+                    getDropDownMenu(i).get(k).click();
                     //Assert.assertTrue(driver.findElements(By.cssSelector("hi")).size() > 0);
-                    //Assert.assertTrue(IsElementPresent(By.cssSelector("h1")));
+                    //Assert.assertTrue();
                 }
-            }
-            if (menuElSize == 1) {
-                {
-                    menuElement.click();
-                }
+            } else {
+                //sideMenuElement.click();
 
             }
         }
