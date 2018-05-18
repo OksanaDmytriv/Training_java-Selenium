@@ -31,12 +31,7 @@ public class Homework_2 {
     }
 
     public boolean isElementPresent(String locator) {
-        try {
-            driver.findElement(By.tagName(locator));
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
+        return driver.findElements(By.tagName(locator)).size() > 0;
     }
 
     public WebElement getSideMenuElementByNumber(int count) {
