@@ -15,8 +15,28 @@ public class Homework_2 {
     static WebDriver driver;
     public int sideMenuSize;
 
+    public void login() {
+        driver.get("http://localhost/litecart/admin");
+        driver.findElement(By.name("username")).sendKeys("admin");
+        driver.findElement(By.name("password")).sendKeys("admin");
+        driver.findElement(By.name("login")).click();
+    }
+
+    public void clickOnLogo() {
+        driver.findElement(By.className("logotype")).click();
+    }
+
     public List<WebElement> getFullSideMenu() {
         return driver.findElement(By.id("box-apps-menu")).findElements(By.tagName("li"));
+    }
+
+    public boolean isElementPresent(String locator) {
+        try {
+            driver.findElement(By.tagName(locator));
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
     }
 
     public WebElement getSideMenuElementByNumber(int count) {
@@ -40,17 +60,6 @@ public class Homework_2 {
         return getDropDownMenu(count).size();
     }
 
-    public void clickOnLogo() {
-        driver.findElement(By.className("logotype")).click();
-    }
-
-    public void login() {
-        driver.get("http://localhost/litecart/admin");
-        driver.findElement(By.name("username")).sendKeys("admin");
-        driver.findElement(By.name("password")).sendKeys("admin");
-        driver.findElement(By.name("login")).click();
-    }
-
     @BeforeClass
     public static void start() {
         ChromeDriverManager.getInstance().setup();
@@ -62,18 +71,18 @@ public class Homework_2 {
         login();
         sideMenuSize = getFullSideMenu().size();
         for (int i = 0; i < sideMenuSize; i++) {
-            clickOnLogo();
 
+            clickOnLogo();
             WebElement sideMenuElement = getSideMenuElementByNumber(i);
             sideMenuElement.click();
             if (checkIfDropDownExist(i) != false) {
                 Integer dropDownElementsSize = dropDownMenuSize(i);
                 for (int k = 0; k < dropDownElementsSize; k++) {
                     getDropDownMenu(i).get(k).click();
-                    Assert.assertTrue(driver.findElement(By.tagName("h1")).isDisplayed());
+                    Assert.assertTrue(isElementPresent("h1"));
                 }
             } else {
-                Assert.assertTrue(driver.findElement(By.tagName("h1")).isDisplayed());
+                Assert.assertTrue(isElementPresent("h1"));
 
             }
         }
