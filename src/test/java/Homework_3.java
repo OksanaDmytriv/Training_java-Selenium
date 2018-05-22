@@ -19,6 +19,10 @@ public class Homework_3 {
         return driver.findElement(By.className(locator));
     }
 
+    public WebElement findByCSSSelector(String locator) {
+        return driver.findElement(By.cssSelector(locator));
+    }
+
     @BeforeClass
     public static void start() {
         ChromeDriverManager.getInstance().setup();
@@ -29,38 +33,36 @@ public class Homework_3 {
     public void thirdTest() {
         driver.get("http://localhost/litecart/");
 
+        WebElement discountPriceElementMainPage = findByXpathMainPage("//strong[@class='campaign-price']");
+        WebElement regularPriceElementMainPage = findByXpathMainPage("//s[@class='regular-price']");
+
         //main page
-        String mainPageText = driver.findElement(By.cssSelector("#box-campaigns .name")).getText();
-        String discountPriceMainPage = findByXpathMainPage("//strong[@class='campaign-price']").getText();
+        String mainPageText = findByCSSSelector("#box-campaigns .name").getText();
 
-        String textStyleDiscountPriceMainPage = findByXpathMainPage("//strong[@class='campaign-price']")
-                .getTagName();
-        String colorDiscountPriceMainPage = findByXpathMainPage("//strong[@class='campaign-price']")
-                .getCssValue("color");
+        String discountPriceMainPage = discountPriceElementMainPage.getText();
+        String textStyleDiscountPriceMainPage = discountPriceElementMainPage.getTagName();
+        String colorDiscountPriceMainPage = discountPriceElementMainPage.getCssValue("color");
 
-        String regularPriceMainPage = findByXpathMainPage("//s[@class='regular-price']").getText();
-
-        String textStyleRegularPriceMainPage = findByXpathMainPage("//s[@class='regular-price']")
-                .getTagName();
-        String colorRegularPriceMainPage = findByXpathMainPage("//s[@class='regular-price']")
-                .getCssValue("color");
+        String regularPriceMainPage = regularPriceElementMainPage.getText();
+        String textStyleRegularPriceMainPage = regularPriceElementMainPage.getTagName();
+        String colorRegularPriceMainPage = regularPriceElementMainPage.getCssValue("color");
 
 
         //product page
         findByXpathMainPage("").click();
 
-        String productPageText = driver.findElement(By.cssSelector("#box-product .title")).getText();
-        String discountPriceProductPage = findByClassName("campaign-price").getText();
+        WebElement discountPriceElementProductPage = findByClassName("campaign-price");
+        WebElement regularPriceElementProductPage = findByClassName("regular-price");
 
-        String textStyleDiscountPriceProductPage = findByClassName("campaign-price").getTagName();
-        String colorDiscountPriceProductPage = findByClassName("campaign-price")
-                .getCssValue("color");
+        String productPageText = findByCSSSelector("#box-product .title").getText();
 
-        String regularPriceProductPage = driver.findElement(By.className("regular-price")).getText();
+        String discountPriceProductPage = discountPriceElementProductPage.getText();
+        String textStyleDiscountPriceProductPage = discountPriceElementProductPage.getTagName();
+        String colorDiscountPriceProductPage = discountPriceElementProductPage.getCssValue("color");
 
-        String textStyleRegularPriceProductPage = findByClassName("regular-price").getTagName();
-        String colorRegularPriceProductPage = findByClassName("regular-price")
-                .getCssValue("color");
+        String regularPriceProductPage = regularPriceElementProductPage.getText();
+        String textStyleRegularPriceProductPage = regularPriceElementProductPage.getTagName();
+        String colorRegularPriceProductPage = regularPriceElementProductPage.getCssValue("color");
 
 
         //asserts
@@ -70,9 +72,9 @@ public class Homework_3 {
         Assert.assertEquals(regularPriceMainPage, regularPriceProductPage);
 
         Assert.assertEquals(textStyleDiscountPriceMainPage, textStyleDiscountPriceProductPage);
-        Assert.assertEquals(colorDiscountPriceMainPage,colorDiscountPriceProductPage);
-
         Assert.assertEquals(textStyleRegularPriceMainPage, textStyleRegularPriceProductPage);
+
+        Assert.assertEquals(colorDiscountPriceMainPage, colorDiscountPriceProductPage);
         Assert.assertEquals(colorRegularPriceMainPage, colorRegularPriceProductPage);
     }
 
