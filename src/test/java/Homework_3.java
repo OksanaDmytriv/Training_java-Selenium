@@ -64,18 +64,21 @@ public class Homework_3 {
         String textStyleRegularPriceProductPage = regularPriceElementProductPage.getTagName();
         String colorRegularPriceProductPage = regularPriceElementProductPage.getCssValue("color");
 
-
         //asserts
         Assert.assertEquals(mainPageText, productPageText);
 
         Assert.assertEquals(discountPriceMainPage, discountPriceProductPage);
         Assert.assertEquals(regularPriceMainPage, regularPriceProductPage);
 
-        Assert.assertEquals(textStyleDiscountPriceMainPage, textStyleDiscountPriceProductPage);
-        Assert.assertEquals(textStyleRegularPriceMainPage, textStyleRegularPriceProductPage);
+        Assert.assertEquals(textStyleDiscountPriceMainPage, "strong");
+        Assert.assertEquals(textStyleDiscountPriceProductPage, "strong");
+        Assert.assertEquals(textStyleRegularPriceMainPage, "s");
+        Assert.assertEquals(textStyleRegularPriceProductPage, "s");
 
-        Assert.assertEquals(colorDiscountPriceMainPage, colorDiscountPriceProductPage);
-        Assert.assertEquals(colorRegularPriceMainPage, colorRegularPriceProductPage);
+        Assert.assertEquals(colorDiscountPriceMainPage, "rgb(204, 0, 0)");
+        Assert.assertEquals(colorDiscountPriceProductPage, "rgb(204, 0, 0)");
+        Assert.assertEquals(colorRegularPriceMainPage, "rgb(119, 119, 119)");
+        Assert.assertEquals(colorRegularPriceProductPage, "rgb(102, 102, 102)");
     }
 
     @AfterClass
