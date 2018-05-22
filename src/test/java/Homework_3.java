@@ -40,11 +40,13 @@ public class Homework_3 {
         String mainPageText = findByCSSSelector("#box-campaigns .name").getText();
 
         String discountPriceMainPage = discountPriceElementMainPage.getText();
-        String textStyleDiscountPriceMainPage = discountPriceElementMainPage.getTagName();
+        //String textStyleDiscountPriceMainPage = discountPriceElementMainPage.getTagName();
+        String textStyleDiscountPriceMainPage = discountPriceElementMainPage.getCssValue("font-weight");
         String colorDiscountPriceMainPage = discountPriceElementMainPage.getCssValue("color");
 
         String regularPriceMainPage = regularPriceElementMainPage.getText();
-        String textStyleRegularPriceMainPage = regularPriceElementMainPage.getTagName();
+        //String textStyleRegularPriceMainPage = regularPriceElementMainPage.getTagName();
+        String textStyleRegularPriceMainPage = regularPriceElementMainPage.getCssValue("text-decoration-line");
         String colorRegularPriceMainPage = regularPriceElementMainPage.getCssValue("color");
 
 
@@ -57,11 +59,13 @@ public class Homework_3 {
         String productPageText = findByCSSSelector("#box-product .title").getText();
 
         String discountPriceProductPage = discountPriceElementProductPage.getText();
-        String textStyleDiscountPriceProductPage = discountPriceElementProductPage.getTagName();
+        //String textStyleDiscountPriceProductPage = discountPriceElementProductPage.getTagName();
+        String textStyleDiscountPriceProductPage = discountPriceElementProductPage.getCssValue("font-weight");
         String colorDiscountPriceProductPage = discountPriceElementProductPage.getCssValue("color");
 
         String regularPriceProductPage = regularPriceElementProductPage.getText();
-        String textStyleRegularPriceProductPage = regularPriceElementProductPage.getTagName();
+        //String textStyleRegularPriceProductPage = regularPriceElementProductPage.getTagName();
+        String textStyleRegularPriceProductPage = regularPriceElementProductPage.getCssValue("text-decoration-line");
         String colorRegularPriceProductPage = regularPriceElementProductPage.getCssValue("color");
 
         //asserts
@@ -70,10 +74,15 @@ public class Homework_3 {
         Assert.assertEquals(discountPriceMainPage, discountPriceProductPage);
         Assert.assertEquals(regularPriceMainPage, regularPriceProductPage);
 
-        Assert.assertEquals(textStyleDiscountPriceMainPage, "strong");
+/*        Assert.assertEquals(textStyleDiscountPriceMainPage, "strong");
         Assert.assertEquals(textStyleDiscountPriceProductPage, "strong");
         Assert.assertEquals(textStyleRegularPriceMainPage, "s");
-        Assert.assertEquals(textStyleRegularPriceProductPage, "s");
+        Assert.assertEquals(textStyleRegularPriceProductPage, "s");*/
+
+        Assert.assertEquals(textStyleDiscountPriceMainPage, "700");
+        Assert.assertEquals(textStyleDiscountPriceProductPage, "700");
+        Assert.assertEquals(textStyleRegularPriceMainPage, "line-through");
+        Assert.assertEquals(textStyleRegularPriceProductPage, "line-through");
 
         Assert.assertEquals(colorDiscountPriceMainPage, "rgb(204, 0, 0)");
         Assert.assertEquals(colorDiscountPriceProductPage, "rgb(204, 0, 0)");
