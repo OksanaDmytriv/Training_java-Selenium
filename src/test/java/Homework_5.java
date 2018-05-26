@@ -29,15 +29,23 @@ public class Homework_5 {
         return driver.findElement(By.cssSelector(locator));
     }
 
+    public WebElement findElementByName(String locator) {
+        return driver.findElement(By.name(locator));
+    }
+
+    public List<WebElement> findElementsByName(String locator) {
+        return driver.findElements(By.name(locator));
+    }
+
     public void fillGeneralTab(String productName, String imagePath) {
-        findElementsByCSSSelector("input[name='status']").get(0).click();
-        findElementByCSSSelector("input[name='name[en]']").sendKeys(productName);
-        findElementByCSSSelector("input[name='code']").sendKeys("1111");
-        findElementsByCSSSelector("input[name='categories[]']").get(0).click();
-        findElementsByCSSSelector("input[name='categories[]']").get(1).click();
-        findElementsByCSSSelector("input[name='product_groups[]']").get(0).click();
-        findElementsByCSSSelector("input[name='product_groups[]']").get(1).click();
-        findElementByCSSSelector("input[name='new_images[]']").sendKeys(imagePath);
+        findElementsByName("status").get(0).click();
+        findElementByName("name[en]").sendKeys(productName);
+        findElementByName("code").sendKeys("1111");
+        findElementsByName("categories[]").get(0).click();
+        findElementsByName("categories[]").get(1).click();
+        findElementsByName("product_groups[]").get(0).click();
+        findElementsByName("product_groups[]").get(1).click();
+        findElementByName("new_images[]").sendKeys(imagePath);
     }
 
     public void navigateBetweenTabs(Integer index) {
@@ -64,19 +72,19 @@ public class Homework_5 {
 
         //fill Information tab
         navigateBetweenTabs(1);
-        WebElement manufacturer = findElementByCSSSelector("select[name='manufacturer_id']");
+        WebElement manufacturer = findElementByName("manufacturer_id");
         Select manufacturerDropDown = new Select(manufacturer);
         manufacturerDropDown.selectByIndex(1);
-        findElementByCSSSelector("input[name='keywords']").sendKeys("Costa Rica nature");
+        findElementByName("keywords").sendKeys("Costa Rica nature");
         findElementByCSSSelector(".trumbowyg-editor").sendKeys("This is test product");
 
         //fill Price tab
         navigateBetweenTabs(3);
-        findElementByCSSSelector("input[name='prices[USD]']").sendKeys("123456");
+        findElementByName("prices[USD]").sendKeys("123456");
 
-        findElementByCSSSelector("button[name='save']").click();
+        findElementByName("save").click();
 
-        findElementByCSSSelector("input[name='query']").sendKeys(productName + Keys.ENTER);
+        findElementByName("query").sendKeys(productName + Keys.ENTER);
         Integer productSize = findElementByCSSSelector(".dataTable").findElements(By.tagName("tr")).size();
 
         Assert.assertEquals("3", Integer.toString(productSize));
