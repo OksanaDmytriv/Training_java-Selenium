@@ -60,8 +60,7 @@ public class Homework_6 {
 
         removeProductFromCard(7);
         removeProductFromCard(6);
-        wait.until((WebDriver driver) -> findElementByCSSSelector("[name='remove_cart_item']").isEnabled());
-        findElementByCSSSelector("[name='remove_cart_item']").click();
+        removeProductFromCard(0);
 
         driver.get("http://localhost/litecart/en/");
         wait.until((WebDriver driver) -> findElementByCSSSelector("#cart a.content span.quantity").getText().equals("0"));
