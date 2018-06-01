@@ -61,8 +61,8 @@ public class Homework_5 {
     @Test
     public void fifthTest() {
         login();
-        driver.findElement(By.id("box-apps-menu")).findElements(By.tagName("li")).get(1).click();
-        findElementsByCSSSelector("a.button").get(1).click();
+        findElementByCSSSelector("#box-apps-menu li:nth-child(2)").click();
+        findElementByCSSSelector("a.button:nth-child(2)").click();
 
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("Costa_Rica.jpg").getFile());
@@ -85,9 +85,9 @@ public class Homework_5 {
         findElementByName("save").click();
 
         findElementByName("query").sendKeys(productName + Keys.ENTER);
-        Integer productSize = findElementByCSSSelector(".dataTable").findElements(By.tagName("tr")).size();
+        String nameToCheck = findElementByCSSSelector(".dataTable td:nth-child(3)").getText();
 
-        Assert.assertEquals("3", Integer.toString(productSize));
+        Assert.assertEquals(productName, nameToCheck);
     }
 
     @AfterClass
