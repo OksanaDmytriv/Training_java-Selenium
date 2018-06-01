@@ -48,7 +48,7 @@ public class Homework_7 {
         login();
 
         driver.navigate().to("http://localhost/litecart/admin/?app=countries&doc=countries");
-        findElementsByCSSSelector(".dataTable tr i[class='fa fa-pencil']").get(100).click();
+        findElementsByCSSSelector(".dataTable tr i[class='fa fa-pencil']").get(0).click();
         List<WebElement> urls = findElementsByCSSSelector(".fa.fa-external-link");
 
         String startWindow = driver.getWindowHandle();
