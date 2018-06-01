@@ -4,13 +4,14 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
 public class Homework_6 {
     static WebDriver driver;
-    WebDriverWait wait;
+    static WebDriverWait wait;
 
     public WebElement findElementByCSSSelector(String locator) {
         return driver.findElement(By.cssSelector(locator));
@@ -23,24 +24,20 @@ public class Homework_6 {
     public void addProductToCart(String text) {
         findElementByCSSSelector("#box-most-popular ul[class='listing-wrapper products']").findElements(By.tagName("li")).get(0).click();
         driver.findElement(By.name("add_cart_product")).click();
-
-        wait = new WebDriverWait(driver, 5);
         wait.until((WebDriver driver) -> findElementByCSSSelector("#cart a.content span.quantity").getText().equals(text));
     }
 
-    public void removeProductFromCard(Integer num) {
+    public void removeProductFromCard() {
         wait.until((WebDriver driver) -> findElementByCSSSelector("[name='remove_cart_item']").isEnabled());
         findElementByCSSSelector("[name='remove_cart_item']").click();
-        wait.until((WebDriver driver) -> {
-            Integer size = findElementsByCSSSelector("table[class='dataTable rounded-corners'] tbody tr").size();
-            return size.equals(num);
-        });
+        wait.until(ExpectedConditions.stalenessOf(findElementByCSSSelector("table[class='dataTable rounded-corners']")));
     }
 
     @BeforeClass
     public static void start() {
         ChromeDriverManager.getInstance().setup();
         driver = new ChromeDriver();
+        wait = new WebDriverWait(driver, 5);
     }
 
     @Test
@@ -58,9 +55,9 @@ public class Homework_6 {
 
         findElementByCSSSelector("#cart .link").click();
 
-        removeProductFromCard(7);
-        removeProductFromCard(6);
-        removeProductFromCard(0);
+        removeProductFromCard();
+        removeProductFromCard();
+        removeProductFromCard();
 
         driver.get("http://localhost/litecart/en/");
         wait.until((WebDriver driver) -> findElementByCSSSelector("#cart a.content span.quantity").getText().equals("0"));
